@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f8f0e9">
+    <title>باقة من القلب | Floral</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --background: #f8f0e9;
+            --surface: #fffcf8;
+            --pink: #b65370;
+            --pink-light: #f3d8dc;
+            --text: #765b59;
+            --muted: #ad9290;
+            --gold: #c6a16d;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Cairo', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(ellipse at 50% 30%, #fffdf8 0%, transparent 55%),
+                var(--background);
+            overflow-x: hidden;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .page {
+            width: min(100% - 32px, 560px);
+            min-height: 100vh;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 34px 0 22px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 23px;
+            animation: fade-up .8s ease both;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 10px;
+            letter-spacing: 4px;
+            color: var(--gold);
+            direction: ltr;
+        }
+
+        .header h1 {
+            font-size: clamp(25px, 6vw, 35px);
+            line-height: 1.6;
+            margin: 9px 0 0;
+            font-weight: 800;
+            color: #684c4d;
+        }
+
+        .header h1 span {
+            color: var(--pink);
+        }
+
+        .header p {
+            margin: 2px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .bouquet-card {
+            width: 100%;
+            max-width: 430px;
+            position: relative;
+            text-align: center;
+            padding: 20px 18px 25px;
+            border: 1px solid #fff;
+            border-radius: 180px 180px 30px 30px;
+            background: linear-gradient(155deg, #fffdf9e8, #fff8f3c9);
+            box-shadow:
+                0 24px 65px #8b5c4c0e,
+                0 4px 15px #8b5c4c08,
+                inset 0 0 0 5px #fff8f26b;
+            animation: fade-up 1s .1s ease both;
+        }
+
+        .top-decoration {
+            color: var(--gold);
+            font-size: 18px;
+            margin: 0 auto;
+        }
+
+        .bouquet {
+            width: min(100%, 340px);
+            margin: 0 auto;
+        }
+
+        .bouquet svg {
+            display: block;
+            width: 100%;
+            overflow: visible;
+        }
+
+        .flower {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: flower-arrive .8s both, flower-sway 5s ease-in-out infinite;
+        }
+
+        .flower-center {
+            animation-delay: .1s, .5s;
+        }
+
+        .flower-side {
+            animation-delay: .2s, 1s;
+        }
+
+        .flower-back {
+            animation-delay: .3s, .7s;
+        }
+
+        .flower-front {
+            animation-delay: .45s, 1.3s;
+        }
+
+        .ribbon {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: flower-sway 5s ease-in-out infinite;
+        }
+
+        .card-caption {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 13px;
+            font-size: 12px;
+            color: var(--muted);
+            margin: 2px 0 20px;
+        }
+
+        .caption-line {
+            height: 1px;
+            width: 30px;
+            background: #dfc5b4;
+        }
+
+        .gift-button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 13px;
+            min-width: 190px;
+            padding: 12px 22px;
+            color: #fffaf7;
+            border: 1px solid #d28a9c;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #c8758a, #a54d6a);
+            box-shadow: 0 8px 20px #a54d6a25;
+            cursor: pointer;
+            transition: transform .25s, box-shadow .25s;
+        }
+
+        .gift-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px #a54d6a38;
+        }
+
+        .gift-button:focus-visible {
+            outline: 3px solid #d7a5b2;
+            outline-offset: 4px;
+        }
+
+        .button-icon {
+            font-size: 21px;
+            line-height: 1;
+        }
+
+        .letter {
+            display: none;
+            text-align: center;
+            margin-top: 22px;
+            padding: 20px 17px;
+            border-radius: 20px;
+            background: #f8e9e7;
+            border: 1px solid #f0d9d7;
+        }
+
+        .letter.is-open {
+            display: block;
+            animation: fade-up .5s ease both;
+        }
+
+        .letter-flower {
+            font-size: 28px;
+            color: var(--pink);
+        }
+
+        .letter h2 {
+            font-size: 19px;
+            margin: 7px 0 10px;
+            color: #97516a;
+        }
+
+        .letter p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 2.2;
+        }
+
+        .letter-signature {
+            display: block;
+            margin-top: 13px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--pink);
+        }
+
+        .footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+            margin-top: 22px;
+            color: #b59b8d;
+            font-size: 9px;
+            letter-spacing: 3px;
+            direction: ltr;
+        }
+
+        .footer-heart {
+            color: #c16e82;
+            font-size: 12px;
+            letter-spacing: 0;
+        }
+
+        .ambient {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            position: fixed;
+            filter: blur(85px);
+            opacity: .3;
+            pointer-events: none;
+        }
+
+        .ambient-one {
+            background: #e9bfc6;
+            top: -100px;
+            right: -100px;
+        }
+
+        .ambient-two {
+            background: #e7d2b5;
+            bottom: -120px;
+            left: -100px;
+        }
+
+        .particle {
+            position: fixed;
+            bottom: -25px;
+            z-index: 5;
+            pointer-events: none;
+            animation: float-up linear forwards;
+        }
+
+        @keyframes fade-up {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes flower-arrive {
+            from {
+                opacity: 0;
+                scale: .5;
+            }
+            to {
+                opacity: 1;
+                scale: 1;
+            }
+        }
+
+        @keyframes flower-sway {
+            0%, 100% {
+                rotate: -1deg;
+            }
+            50% {
+                rotate: 1deg;
+            }
+        }
+
+        @keyframes float-up {
+            to {
+                transform: translateY(-110vh) rotate(40deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .page {
+                width: calc(100% - 24px);
+                padding-top: 24px;
+            }
+
+            .header {
+                margin-bottom: 16px;
+            }
+
+            .bouquet-card {
+                padding: 17px 12px 22px;
+            }
+
+            .bouquet {
+                max-width: 300px;
+            }
+        }
+
+        @media (max-height: 780px) and (min-width: 421px) {
+            .page {
+                padding-top: 18px;
+                padding-bottom: 18px;
+            }
+
+            .header {
+                margin-bottom: 10px;
+            }
+
+            .bouquet {
+                max-width: 290px;
+            }
+
+            .footer {
+                margin-top: 12px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <main class="page">
+        <header class="header">
+            <span class="eyebrow">A LITTLE GIFT FOR YOU</span>
+            <h1>لأنك تستحق <span>الأجمل</span></h1>
+            <p>بعض المشاعر لا تكفيها الكلمات</p>
+        </header>
+
+        <section class="bouquet-card">
+            <div class="top-decoration">✳</div>
+
+            <div class="bouquet">
+                <svg viewBox="0 0 340 350"
+                     xmlns="http://www.w3.org/2000/svg"
+                     role="img"
+                     aria-label="باقة من الورود الوردية">
+
+                    <defs>
+                        <linearGradient id="wrap" x1="0" y1="0" x2="1" y2="1">
+                            <stop stop-color="#f9dfd4"/>
+                            <stop offset="1" stop-color="#d7a5a1"/>
+                        </linearGradient>
+
+                        <linearGradient id="stem" x1="0" y1="0" x2="1" y2="0">
+                            <stop stop-color="#54765a"/>
+                            <stop offset="1" stop-color="#9bb18a"/>
+                        </linearGradient>
+
+                        <radialGradient id="petal">
+                            <stop stop-color="#ffe4df"/>
+                            <stop offset="0.7" stop-color="#e994a8"/>
+                            <stop offset="1" stop-color="#b54c6b"/>
+                        </radialGradient>
+
+                        <radialGradient id="lightRose">
+                            <stop stop-color="#fff1e9"/>
+                            <stop offset="1" stop-color="#eaa5b3"/>
+                        </radialGradient>
+
+                        <g id="rose">
+                            <g fill="url(#petal)">
+                                <ellipse cy="-13" rx="10" ry="17"/>
+                                <ellipse cy="-13" rx="10" ry="17" transform="rotate(45)"/>
+                                <ellipse cy="-13" rx="10" ry="17" transform="rotate(90)"/>
+                                <ellipse cy="-13" rx="10" ry="17" transform="rotate(135)"/>
+                                <ellipse cy="-13" rx="10" ry="17" transform="rotate(180)"/>
+                                <ellipse cy="-13" rx="10" ry="17" transform="rotate(225)"/>
+                                <ellipse cy="-13" rx="10" ry="17" transform="rotate(270)"/>
+                                <ellipse cy="-13" rx="10" ry="17" transform="rotate(315)"/>
+                            </g>
+                            <circle r="8" fill="#b84c69"/>
+                            <path d="M-4 0 Q-5 -7 1 -7 Q7 -4 4 1 Q0 5 -3 2"
+                                  fill="none" stroke="#ffd8d5" stroke-width="2.5"/>
+                        </g>
+
+                        <g id="smallFlower">
+                            <g fill="url(#lightRose)">
+                                <ellipse cy="-10" rx="8" ry="13"/>
+                                <ellipse cy="-10" rx="8" ry="13" transform="rotate(60)"/>
+                                <ellipse cy="-10" rx="8" ry="13" transform="rotate(120)"/>
+                                <ellipse cy="-10" rx="8" ry="13" transform="rotate(180)"/>
+                                <ellipse cy="-10" rx="8" ry="13" transform="rotate(240)"/>
+                                <ellipse cy="-10" rx="8" ry="13" transform="rotate(300)"/>
+                            </g>
+                            <circle r="5" fill="#d9ae6e"/>
+                        </g>
+
+                        <g id="leaf">
+                            <path d="M0 0 Q-30 -35 -44 -12 Q-35 9 0 0Z"
+                                  fill="#769579"/>
+                            <path d="M0 0 L-37 -12"
+                                  fill="none" stroke="#c5d0a9" stroke-width="1.3"/>
+                        </g>
+                    </defs>
+
+                    <!-- Stems -->
+                    <g fill="none" stroke="url(#stem)"
+                       stroke-width="3.5" stroke-linecap="round">
+                        <path d="M170 112 Q160 205 171 277"/>
+                        <path d="M128 143 Q145 208 171 277"/>
+                        <path d="M211 140 Q185 211 171 277"/>
+                        <path d="M91 166 Q135 225 171 277"/>
+                        <path d="M248 163 Q203 230 171 277"/>
+                        <path d="M153 115 Q154 204 171 277"/>
+                    </g>
+
+                    <!-- Leaves -->
+                    <g>
+                        <use href="#leaf" transform="translate(133 199) rotate(-20)"/>
+                        <use href="#leaf" transform="translate(188 217) scale(-1 1) rotate(-18)"/>
+                        <use href="#leaf" transform="translate(151 238) rotate(-12) scale(.8)"/>
+                        <use href="#leaf" transform="translate(198 244) scale(-.8 .8) rotate(-15)"/>
+                        <use href="#leaf" transform="translate(119 164) rotate(-25) scale(.75)"/>
+                        <use href="#leaf" transform="translate(222 177) scale(-.8 .8) rotate(-20)"/>
+                    </g>
+
+                    <!-- Wrapping paper -->
+                    <path d="M65 149 L171 299 L275 149 L237 268 L105 268Z"
+                          fill="url(#wrap)"/>
+
+                    <path d="M65 149 Q168 184 275 149 L171 299Z"
+                          fill="#fff7ed" opacity=".55"/>
+
+                    <path d="M65 149 L171 299 L120 232Z"
+                          fill="#fff" opacity=".25"/>
+
+                    <!-- Flowers -->
+                    <g class="flower flower-back">
+                        <use href="#smallFlower" transform="translate(101 158) scale(1.15)"/>
+                    </g>
+
+                    <g class="flower flower-back">
+                        <use href="#smallFlower" transform="translate(239 157) scale(1.15)"/>
+                    </g>
+
+                    <g class="flower flower-side">
+                        <use href="#rose" transform="translate(128 128) scale(1.03)"/>
+                    </g>
+
+                    <g class="flower flower-center">
+                        <use href="#rose" transform="translate(171 94) scale(1.3)"/>
+                    </g>
+
+                    <g class="flower flower-side">
+                        <use href="#rose" transform="translate(215 126) scale(1.03)"/>
+                    </g>
+
+                    <g class="flower flower-front">
+                        <use href="#smallFlower" transform="translate(91 181) scale(.88)"/>
+                    </g>
+
+                    <g class="flower flower-front">
+                        <use href="#smallFlower" transform="translate(251 181) scale(.88)"/>
+                    </g>
+
+                    <g class="flower flower-front">
+                        <use href="#smallFlower" transform="translate(145 169) scale(.9)"/>
+                    </g>
+
+                    <g class="flower flower-front">
+                        <use href="#smallFlower" transform="translate(195 170) scale(.9)"/>
+                    </g>
+
+                    <!-- Ribbon -->
+                    <g class="ribbon">
+                        <path d="M165 265 Q128 236 119 258 Q126 281 165 272Z"
+                              fill="#b95973"/>
+                        <path d="M176 265 Q212 236 222 257 Q213 281 176 272Z"
+                              fill="#d68191"/>
+                        <path d="M165 270 L151 309 L172 291 L190 309 L178 270Z"
+                              fill="#a94865"/>
+                        <ellipse cx="171" cy="268" rx="11" ry="9"
+                                 fill="#f0b9bb" stroke="#bc657a" stroke-width="1"/>
+                    </g>
+
+                    <!-- Decorative stars -->
+                    <g fill="#c49c68">
+                        <path d="M54 104 L58 114 L68 118 L58 122 L54 132 L50 122 L40 118 L50 114Z"/>
+                        <path d="M279 93 L282 100 L289 103 L282 106 L279 113 L276 106 L269 103 L276 100Z"/>
+                        <path d="M264 224 L266 229 L271 231 L266 233 L264 238 L262 233 L257 231 L262 229Z"/>
+                        <circle cx="78" cy="226" r="2.5"/>
+                        <circle cx="251" cy="115" r="2"/>
+                    </g>
+                </svg>
+            </div>
+
+           <header class="header">
+    <span class="eyebrow">A LITTLE GIFT FOR MY WIFE</span>
+    <h1>لأنك <span>زوجتي</span>  وحياتي وقلبي</h1>
+    <p>كل الورود قليلة قدام عيونك يا حبيبتي</p>
+</header>
+
+            <button id="openLetter" class="gift-button">
+    <span>افتح يقلبي يحبيبتي</span>
+    <span class="button-icon">♡</span>
+</button>
+
+     <article id="letter" class="letter" aria-hidden="true">
+    <div class="letter-flower">✿</div>
+    <h2>إلى زوجتي... حبيبتي وبيتي</h2>
+    <p>
+        يا حبيبتي،
+        كل وردة بهالباقة اختارتها يداي بشوق،
+        بس صدقيني، ما في وردة بالدنيا كلها
+        بتوصل شو إنت بالنسبة إلي.
+        <br><br>
+        إنت مرتي، وإنت بيتي، وإنت أول شي بفكر فيه
+        لما أفتح عيوني، وآخر شي بيطمّن قلبي قبل ما أنام.
+        إنت الضحكة اللي بتعدّل يومي،
+        والسكينة اللي بتلمّ تعبي،
+        والحضن اللي ما بحسّ معه إني غريب.
+        <br><br>
+        حبيت أهديك هالباقة مش لأنها حلوة،
+        بل لأنك أحلى منها بكتير،
+        ولأن قلبي ما لقى طريقة أحلى من إني أهمس لك:
+        <strong>إنت أجمل شي صار بحياتي، وإنت أحلى نصيب كتبه ربنا إلي.</strong>
+        <br><br>
+        وأوعدك، كل يوم بيعدي،
+        حبي إلك بيكبر أكتر،
+        وقلبي بيضل بيتك، وذراعي بيضلوا سندك،
+        وإيدك بتبقى بإيدي... لآخر العمر.
+    </p>
+    <span class="letter-signature">
+        بقى لك مني... كل قلبي، وكلي إلك 🤍<br>
+        زوجك اللي بيحبك أكتر من الأمس، وأقل من بكرا
+    </span>
+</article>
+
+        <footer class="footer">
+            <span>FLOWERS · FEELINGS · MEMORIES</span>
+            <span class="footer-heart">♥</span>
+        </footer>
+    </main>
+
+    <div id="particles" aria-hidden="true"></div>
+
+    <script>
+        (function () {
+            const button = document.getElementById('openLetter');
+            const letter = document.getElementById('letter');
+            const particles = document.getElementById('particles');
+
+            button.addEventListener('click', function () {
+                const isOpen = letter.classList.toggle('is-open');
+                letter.setAttribute('aria-hidden', String(!isOpen));
+                button.querySelector('span').textContent = isOpen ? 'إغلاق الرسالة' : 'افتح رسالتك';
+                if (isOpen) {
+                    createParticles();
+                }
+            });
+
+            function createParticles() {
+                const symbols = ['♡', '✿', '❀', '✧', '♥'];
+                for (let i = 0; i < 18; i++) {
+                    const particle = document.createElement('span');
+                    particle.className = 'particle';
+                    particle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                    particle.style.left = Math.random() * 100 + 'vw';
+                    particle.style.fontSize = (10 + Math.random() * 16) + 'px';
+                    particle.style.color = ['#c16e82', '#e9a8b4', '#c6a16d', '#d68191'][Math.floor(Math.random() * 4)];
+                    particle.style.animationDuration = (3.5 + Math.random() * 3) + 's';
+                    particle.style.animationDelay = (Math.random() * 1.2) + 's';
+                    particles.appendChild(particle);
+                    particle.addEventListener('animationend', () => particle.remove());
+                }
+            }
+        })();
+    </script>
+</body>
+</html>
